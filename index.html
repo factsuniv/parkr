@@ -174,7 +174,7 @@
         .price-tag {
             background: var(--primary-blue);
             color: white;
-            padding: 8px 16px;
+            padding: 3px 6px; /* Reduced padding for a tighter fit with text-xs */
             border-radius: 20px;
             font-weight: 600;
             box-shadow: 0 4px 20px rgba(0, 102, 255, 0.3);
@@ -566,18 +566,10 @@
         <!-- App Body: Sidebar + Main Content -->
         <div id="appBody" class="flex pt-16"> <!-- pt-16 to offset for fixed header height -->
             <!-- Sidebar -->
-            <aside id="sidebar" class="w-64 bg-gray-100 p-4 shadow-lg transition-all duration-300 ease-in-out h-screen fixed top-16 left-0 z-30 md:block">
+            <aside id="sidebar" class="w-64 bg-gray-100 p-4 shadow-lg transition-all duration-300 ease-in-out h-screen fixed top-16 left-0 z-30">
+                <!-- Content removed as per requirement. Sidebar can be populated later. -->
                 <!-- sticky top-16 to account for header height. left-0 to fix its position -->
-                <div class="mt-4">
-                    <h3 class="text-lg font-semibold text-gray-700 mb-3">Navigation</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="block p-2 rounded hover:bg-blue-100 text-gray-600 hover:text-blue-700 active:bg-blue-200 active:text-blue-800"><i class="fas fa-home mr-2"></i>Dashboard</a></li>
-                        <li><a href="#" class="block p-2 rounded hover:bg-blue-100 text-gray-600 hover:text-blue-700 active:bg-blue-200 active:text-blue-800"><i class="fas fa-map-marked-alt mr-2"></i>Map View</a></li>
-                        <li><a href="#" class="block p-2 rounded hover:bg-blue-100 text-gray-600 hover:text-blue-700 active:bg-blue-200 active:text-blue-800"><i class="fas fa-history mr-2"></i>Booking History</a></li>
-                        <li><a href="#" class="block p-2 rounded hover:bg-blue-100 text-gray-600 hover:text-blue-700 active:bg-blue-200 active:text-blue-800"><i class="fas fa-cog mr-2"></i>Settings</a></li>
-                    </ul>
-                    <p class="text-gray-600 mt-6">Sidebar Placeholder</p>
-                </div>
+                <!-- md:block class will be managed by JS -->
             </aside>
 
             <!-- Main Content -->
@@ -926,7 +918,7 @@
         let currentLocation = null;
         let selectedSpot = null;
         let bookingProgress = 0;
-        let isSidebarOpen = true; // Track sidebar state
+        let isSidebarOpen = false; // Changed: Sidebar starts closed by default on all screen sizes
 
         // Initialize app
         document.addEventListener('DOMContentLoaded', function() {
@@ -945,11 +937,8 @@
             // Initialize notifications
             setTimeout(showWelcomeNotification, 1000);
 
-            // Initial sidebar state for mobile
-            if (window.innerWidth < 768) {
-                isSidebarOpen = false; // Start closed on mobile
-            }
-            updateSidebarState(); // Apply initial state
+            // Apply initial sidebar state (should be closed)
+            updateSidebarState();
         });
 
         function setupEventListeners() {
@@ -978,31 +967,42 @@
             const mainContent = document.getElementById('mainContent');
             const sidebarToggleIcon = document.getElementById('sidebarToggle').querySelector('i');
 
-            if (!sidebar || !mainContent || !sidebarToggleIcon) return; // Defensive check
+            if (!sidebar || !mainContent || !sidebarToggleIcon) return;
 
             if (isSidebarOpen) {
-                sidebar.classList.remove('hidden', '-ml-64');
-                mainContent.classList.remove('md:ml-0');
-                mainContent.classList.add('md:ml-64');
+                // --- OPEN STATE ---
+                sidebar.classList.remove('hidden', '-ml-64'); // Ensure it's not hidden and not slid out
                 sidebarToggleIcon.classList.remove('fa-bars');
                 sidebarToggleIcon.classList.add('fa-times');
-                 if (window.innerWidth < 768) {
-                    sidebar.classList.remove('md:block'); // Keep fixed for overlay effect
+
+                if (window.innerWidth < 768) { // Mobile: Overlay
                     sidebar.classList.add('fixed', 'z-40', 'w-full');
-                } else {
-                    sidebar.classList.remove('hidden');
-                    sidebar.classList.add('md:block');
+                    sidebar.classList.remove('md:block'); // Not needed for mobile overlay
+                    mainContent.classList.remove('md:ml-64'); // Main content should not have margin on mobile
+                    mainContent.classList.add('md:ml-0');
+                } else { // Desktop: Pushes content
+                    sidebar.classList.remove('fixed', 'z-40', 'w-full'); // Not an overlay on desktop
+                    sidebar.classList.add('md:block'); // Standard block display for desktop
+                    mainContent.classList.add('md:ml-64');
+                    mainContent.classList.remove('md:ml-0');
                 }
             } else {
-                mainContent.classList.remove('md:ml-64');
-                mainContent.classList.add('md:ml-0');
+                // --- CLOSED STATE ---
                 sidebarToggleIcon.classList.remove('fa-times');
                 sidebarToggleIcon.classList.add('fa-bars');
-                 if (window.innerWidth < 768) {
+                mainContent.classList.remove('md:ml-64'); // Main content takes full width
+                mainContent.classList.add('md:ml-0');
+
+                if (window.innerWidth < 768) { // Mobile: Simply hide
                     sidebar.classList.add('hidden');
-                 } else {
-                    sidebar.classList.add('-ml-64');
-                 }
+                } else { // Desktop: Slide out then hide (or just hide if animation is not preferred)
+                    sidebar.classList.add('-ml-64'); // Slide out for desktop
+                    // To ensure it's truly hidden and not taking up space for screen readers after animation:
+                    // setTimeout(() => { if (!isSidebarOpen) sidebar.classList.add('hidden'); }, 300); // 300ms is transition duration
+                    sidebar.classList.remove('md:block'); // Remove md:block to allow -ml-64 to work
+                }
+                // General cleanup for closed state
+                sidebar.classList.remove('fixed', 'z-40', 'w-full');
             }
         }
 
@@ -1177,13 +1177,11 @@
             document.getElementById('appInterface').classList.remove('hidden');
             // document.body.style.paddingBottom = '80px'; // Account for bottom nav, might not be needed if main content scrolls
 
-            const appInterface = document.getElementById('appInterface'); // Already declared earlier
-            const header = appInterface.querySelector('header'); // Already declared earlier
-            const appBody = document.getElementById('appBody'); // Already declared earlier
+            const appInterface = document.getElementById('appInterface');
+            // const header = appInterface.querySelector('header'); // Not used here
+            // const appBody = document.getElementById('appBody'); // Not used here
 
-            if (window.innerWidth < 768) {
-                isSidebarOpen = false;
-            }
+            // isSidebarOpen is already false by default, no need to set it based on window width here.
             updateSidebarState();
             showAppContent('map'); // Default to map view
         }
@@ -1218,7 +1216,9 @@
                 
                 // Add price indicator
                 const priceElement = document.createElement('div');
-                priceElement.className = 'absolute -top-8 -left-2 price-tag text-xs';
+                // Adjusted positioning: -top-6 (1.5rem) instead of -top-8 (2rem)
+                // Adjusted -left-1 (0.25rem) instead of -left-2 (0.5rem) to keep it relatively centered
+                priceElement.className = 'absolute -top-6 -left-1 price-tag text-xs';
                 priceElement.textContent = '$' + spot.price;
                 spotElement.appendChild(priceElement);
                 
