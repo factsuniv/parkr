@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parkr Valet - Premium Parking Solutions</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        :root {
+            --primary-blue: #0066FF;
+            --secondary-blue: #4A90F5;
+            --accent-blue: #E3F2FD;
+            --dark-blue: #003D99;
+            --success-green: #00D084;
+            --warning-orange: #FF9500;
+            --error-red: #FF3B30;
+        }
+
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .blue-gradient {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .slide-up {
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-primary {
+            background: var(--primary-blue);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 102, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--dark-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 102, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--primary-blue);
+            padding: 16px 32px;
+            border-radius: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-blue);
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-blue);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .parking-spot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .parking-spot.available {
+            background: var(--success-green);
+            color: white;
+            box-shadow: 0 0 20px rgba(0, 208, 132, 0.6);
+        }
+
+        .parking-spot.reserved {
+            background: var(--warning-orange);
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 149, 0, 0.6);
+        }
+
+        .parking-spot:hover {
+            transform: scale(1.2);
+        }
+
+        .map-container {
+            background: linear-gradient(45deg, #f0f9ff 0%, #e0f2fe 50%, #f0f9ff 100%);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .price-tag {
+            background: var(--primary-blue);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            box-shadow: 0 4px 20px rgba(0, 102, 255, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--success-green);
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 10px var(--success-green);
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 102, 255, 0.3);
+            border-left: 4px solid var(--primary-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-left: 4px solid var(--success-green);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: rgba(0, 102, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-blue);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .modal-backdrop {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .parker-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 20px rgba(0, 102, 255, 0.3);
+        }
+
+        .stats-card {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 102, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .premium-badge {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 2px 10px rgba(255, 165, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .mobile-padding {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="glass-morphism fixed top-0 left-0 right-0 z-50 p-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 blue-gradient rounded-xl flex items-center justify-center">
+                    <i class="fas fa-parking text-white text-xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-gray-800">Parkr Valet</h1>
+            </div>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Features</a>
+                <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Pricing</a>
+                <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">About</a>
+                <button class="btn-primary" onclick="showLogin()">Get Started</button>
+            </div>
+            <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform md:hidden">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-xl font-bold">Menu</h2>
+                <button onclick="toggleMobileMenu()">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <nav class="space-y-6">
+                <a href="#" class="block text-lg">Features</a>
+                <a href="#" class="block text-lg">Pricing</a>
+                <a href="#" class="block text-lg">About</a>
+                <button class="btn-primary w-full" onclick="showLogin()">Get Started</button>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="heroSection" class="pt-24 pb-16 gradient-bg text-white">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="fade-in">
+                <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight">
+                    Never Worry About
+                    <span class="bg-white text-blue-600 px-4 py-2 rounded-2xl inline-block mt-2">Parking</span>
+                    Again
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto opacity-90">
+                    Reserve your perfect parking spot with Parkr Valet. Our network of professional parkers ensures you always have a spot waiting.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <button class="btn-primary text-lg px-8 py-4" onclick="showLogin()">
+                        <i class="fas fa-rocket mr-2"></i>
+                        Start Parking Smart
+                    </button>
+                    <button class="btn-secondary text-lg px-8 py-4" onclick="demoAccess()">
+                        <i class="fas fa-play mr-2"></i>
+                        Try Demo
+                    </button>
+                </div>
+            </div>
+            
+            <div class="mt-16 relative">
+                <div class="glass-card rounded-3xl p-8 max-w-4xl mx-auto float-animation">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <div class="w-16 h-16 blue-gradient rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                                <i class="fas fa-search text-white text-2xl"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-800 mb-2">Find Spots</h3>
+                            <p class="text-gray-600">Search available parking in real-time</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-16 h-16 blue-gradient rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                                <i class="fas fa-mobile-alt text-white text-2xl"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-800 mb-2">Reserve Instantly</h3>
+                            <p class="text-gray-600">Book your spot with one tap</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-16 h-16 blue-gradient rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                                <i class="fas fa-check-circle text-white text-2xl"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-800 mb-2">Park & Go</h3>
+                            <p class="text-gray-600">Your parker hands over the perfect spot</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 modal-backdrop z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-card rounded-3xl p-8 w-full max-w-md slide-up">
+            <div class="text-center mb-8">
+                <div class="w-20 h-20 blue-gradient rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-parking text-white text-3xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Welcome to Parkr</h2>
+                <p class="text-gray-600">Sign in to reserve your parking spot</p>
+            </div>
+            
+            <div class="space-y-4 mb-6">
+                <div>
+                    <input type="email" placeholder="Email address" class="w-full p-4 border border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
+                </div>
+                <div>
+                    <input type="password" placeholder="Password" class="w-full p-4 border border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
+                </div>
+            </div>
+            
+            <div class="space-y-3">
+                <button class="btn-primary w-full" onclick="loginUser()">
+                    <i class="fas fa-sign-in-alt mr-2"></i>
+                    Sign In
+                </button>
+                <button class="btn-secondary w-full" onclick="demoAccess()">
+                    <i class="fas fa-eye mr-2"></i>
+                    Demo Access
+                </button>
+            </div>
+            
+            <div class="text-center mt-6">
+                <p class="text-gray-600">Don't have an account? <a href="#" class="text-blue-600 font-semibold">Sign up</a></p>
+            </div>
+            
+            <button onclick="hideLogin()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main App Interface -->
+    <div id="appInterface" class="hidden">
+        <!-- Header -->
+        <header class="glass-morphism p-4 sticky top-0 z-40">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 blue-gradient rounded-xl flex items-center justify-center">
+                        <i class="fas fa-parking text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-gray-800">Parkr Valet</h1>
+                        <div class="flex items-center space-x-2">
+                            <div class="status-indicator"></div>
+                            <span class="text-sm text-gray-600">Live</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="premium-badge">
+                        <i class="fas fa-crown mr-1"></i>
+                        VIP
+                    </div>
+                    <div class="parker-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Location Selector -->
+        <div class="p-4 bg-white border-b">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-bold text-gray-800">Choose Location</h2>
+                <button onclick="refreshSpots()" class="text-blue-600 hover:text-blue-800">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <button onclick="showLocation('downtown')" class="location-card p-4 border-2 border-gray-200 rounded-2xl hover:border-blue-500 transition-colors text-left">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="font-bold text-gray-800">Downtown Dallas</h3>
+                        <div class="price-tag text-sm">$8-25</div>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-3">Business district, high demand</p>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-1">
+                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                            <span class="text-sm text-gray-600">12 available</span>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                            <i class="fas fa-clock text-gray-400 text-sm"></i>
+                            <span class="text-sm text-gray-600">2 min walk</span>
+                        </div>
+                    </div>
+                </button>
+                
+                <button onclick="showLocation('legacy')" class="location-card p-4 border-2 border-gray-200 rounded-2xl hover:border-blue-500 transition-colors text-left">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="font-bold text-gray-800">Legacy West Plano</h3>
+                        <div class="price-tag text-sm">$5-15</div>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-3">Shopping & dining district</p>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-1">
+                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                            <span class="text-sm text-gray-600">8 available</span>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                            <i class="fas fa-clock text-gray-400 text-sm"></i>
+                            <span class="text-sm text-gray-600">1 min walk</span>
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Map View -->
+        <div id="mapView" class="p-4">
+            <div class="map-container h-96 p-6 relative">
+                <div class="absolute top-4 left-4 glass-card p-3 rounded-2xl">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-map-marker-alt text-blue-600"></i>
+                        <span class="font-semibold text-gray-800" id="currentLocation">Select Location</span>
+                    </div>
+                </div>
+                
+                <div class="absolute top-4 right-4 space-y-2">
+                    <div class="glass-card p-2 rounded-xl">
+                        <button onclick="zoomIn()" class="block w-8 h-8 text-gray-600 hover:text-blue-600">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <button onclick="zoomOut()" class="block w-8 h-8 text-gray-600 hover:text-blue-600">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Parking Spots -->
+                <div id="parkingSpots" class="absolute inset-0 p-6">
+                    <!-- Spots will be generated dynamically -->
+                </div>
+                
+                <!-- Legend -->
+                <div class="absolute bottom-4 left-4 glass-card p-3 rounded-2xl">
+                    <div class="flex items-center space-x-4 text-sm">
+                        <div class="flex items-center space-x-1">
+                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                            <span>Available</span>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                            <div class="w-3 h-3 bg-orange-500 rounded-full"></div>
+                            <span>Reserved</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Dashboard -->
+        <div class="p-4">
+            <h3 class="text-lg font-bold text-gray-800 mb-4">Your Parking Stats</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="stats-card text-center">
+                    <div class="text-2xl font-bold text-blue-600 mb-1">24</div>
+                    <div class="text-sm text-gray-600">Spots Reserved</div>
+                </div>
+                <div class="stats-card text-center">
+                    <div class="text-2xl font-bold text-green-600 mb-1">$127</div>
+                    <div class="text-sm text-gray-600">Money Saved</div>
+                </div>
+                <div class="stats-card text-center">
+                    <div class="text-2xl font-bold text-purple-600 mb-1">45min</div>
+                    <div class="text-sm text-gray-600">Time Saved</div>
+                </div>
+                <div class="stats-card text-center">
+                    <div class="text-2xl font-bold text-orange-600 mb-1">4.9</div>
+                    <div class="text-sm text-gray-600">Rating</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <nav class="fixed bottom-0 left-0 right-0 glass-morphism p-4">
+            <div class="flex justify-around">
+                <button class="nav-item active flex flex-col items-center space-y-1 text-blue-600">
+                    <i class="fas fa-map text-xl"></i>
+                    <span class="text-xs">Map</span>
+                </button>
+                <button class="nav-item flex flex-col items-center space-y-1 text-gray-400">
+                    <i class="fas fa-history text-xl"></i>
+                    <span class="text-xs">History</span>
+                </button>
+                <button class="nav-item flex flex-col items-center space-y-1 text-gray-400">
+                    <i class="fas fa-wallet text-xl"></i>
+                    <span class="text-xs">Wallet</span>
+                </button>
+                <button class="nav-item flex flex-col items-center space-y-1 text-gray-400">
+                    <i class="fas fa-user text-xl"></i>
+                    <span class="text-xs">Profile</span>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Spot Detail Modal -->
+    <div id="spotModal" class="fixed inset-0 modal-backdrop z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-card rounded-3xl p-6 w-full max-w-md slide-up">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-bold text-gray-800">Parking Spot Details</h3>
+                <button onclick="hideSpotModal()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div id="spotDetails" class="space-y-4">
+                <!-- Details will be populated dynamically -->
+            </div>
+            
+            <div class="mt-6 space-y-3">
+                <button class="btn-primary w-full" onclick="reserveSpot()">
+                    <i class="fas fa-lock mr-2"></i>
+                    Reserve This Spot
+                </button>
+                <button class="btn-secondary w-full" onclick="hideSpotModal()">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Progress Modal -->
+    <div id="bookingModal" class="fixed inset-0 modal-backdrop z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-card rounded-3xl p-8 w-full max-w-md slide-up text-center">
+            <div class="loading-spinner mx-auto mb-6"></div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Finding Your Parker</h3>
+            <p class="text-gray-600 mb-6">Connecting you with the nearest available parker...</p>
+            
+            <div class="progress-bar mb-6">
+                <div id="progressFill" class="progress-fill" style="width: 0%"></div>
+            </div>
+            
+            <div id="bookingSteps" class="text-left space-y-3">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-check-circle text-green-500"></i>
+                    <span class="text-gray-800">Spot located</span>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="loading-spinner w-4 h-4"></div>
+                    <span class="text-gray-600">Contacting parker...</span>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-circle text-gray-300"></i>
+                    <span class="text-gray-400">Confirming reservation</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 modal-backdrop z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-card rounded-3xl p-8 w-full max-w-md slide-up text-center">
+            <div class="w-20 h-20 bg-green-500 rounded-full mx-auto mb-6 flex items-center justify-center">
+                <i class="fas fa-check text-white text-3xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">Spot Reserved!</h3>
+            <p class="text-gray-600 mb-6">Your parker Mike is waiting at the location</p>
+            
+            <div class="glass-card p-4 rounded-2xl mb-6">
+                <div class="flex items-center space-x-4">
+                    <div class="parker-avatar">M</div>
+                    <div class="text-left">
+                        <div class="font-bold text-gray-800">Mike Johnson</div>
+                        <div class="text-sm text-gray-600">⭐ 4.9 rating • 2.5 min away</div>
+                    </div>
+                    <button class="ml-auto text-blue-600">
+                        <i class="fas fa-phone text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="space-y-3">
+                <button class="btn-primary w-full" onclick="navigateToSpot()">
+                    <i class="fas fa-navigation mr-2"></i>
+                    Navigate to Spot
+                </button>
+                <button class="btn-secondary w-full" onclick="hideSuccessModal()">
+                    Done
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <div class="flex items-center space-x-3">
+            <i class="fas fa-check-circle text-green-500 text-xl"></i>
+            <div>
+                <div class="font-semibold text-gray-800">Booking Confirmed!</div>
+                <div class="text-sm text-gray-600">Your spot is ready</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let currentLocation = null;
+        let selectedSpot = null;
+        let bookingProgress = 0;
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add smooth scrolling and animations
+            animateOnScroll();
+            
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Initialize notifications
+            setTimeout(showWelcomeNotification, 1000);
+        });
+
+        function setupEventListeners() {
+            // Close modals on backdrop click
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('modal-backdrop')) {
+                    hideAllModals();
+                }
+            });
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    hideAllModals();
+                }
+            });
+        }
+
+        function showWelcomeNotification() {
+            const notification = document.getElementById('notification');
+            notification.innerHTML = `
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-info-circle text-blue-500 text-xl"></i>
+                    <div>
+                        <div class="font-semibold text-gray-800">Welcome to Parkr!</div>
+                        <div class="text-sm text-gray-600">Your premium parking solution</div>
+                    </div>
+                </div>
+            `;
+            notification.classList.add('show');
+            setTimeout(() => notification.classList.remove('show'), 3000);
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('translate-x-full');
+        }
+
+        function showLogin() {
+            document.getElementById('loginModal').classList.remove('hidden');
+        }
+
+        function hideLogin() {
+            document.getElementById('loginModal').classList.add('hidden');
+        }
+
+        function loginUser() {
+            // Simulate login process
+            showLoadingState();
+            setTimeout(() => {
+                hideLogin();
+                showApp();
+                showNotification('Welcome back!', 'success');
+            }, 1500);
+        }
+
+        function demoAccess() {
+            hideLogin();
+            showApp();
+            showNotification('Demo mode activated', 'info');
+        }
+
+        function showApp() {
+            document.getElementById('heroSection').style.display = 'none';
+            document.getElementById('appInterface').classList.remove('hidden');
+            document.body.style.paddingBottom = '80px'; // Account for bottom nav
+        }
+
+        function showLocation(location) {
+            currentLocation = location;
+            const locationName = location === 'downtown' ? 'Downtown Dallas' : 'Legacy West Plano';
+            document.getElementById('currentLocation').textContent = locationName;
+            
+            // Generate parking spots
+            generateParkingSpots(location);
+            
+            // Update UI
+            updateLocationCards(location);
+        }
+
+        function generateParkingSpots(location) {
+            const container = document.getElementById('parkingSpots');
+            container.innerHTML = '';
+            
+            const spots = location === 'downtown' ? 
+                generateDowntownSpots() : 
+                generateLegacySpots();
+            
+            spots.forEach(spot => {
+                const spotElement = document.createElement('div');
+                spotElement.className = `parking-spot ${spot.status} absolute cursor-pointer`;
+                spotElement.style.left = spot.x + '%';
+                spotElement.style.top = spot.y + '%';
+                spotElement.innerHTML = 'P';
+                spotElement.onclick = () => showSpotDetails(spot);
+                
+                // Add price indicator
+                const priceElement = document.createElement('div');
+                priceElement.className = 'absolute -top-8 -left-2 price-tag text-xs';
+                priceElement.textContent = '$' + spot.price;
+                spotElement.appendChild(priceElement);
+                
+                container.appendChild(spotElement);
+            });
+        }
+
+        function generateDowntownSpots() {
+            return [
+                { id: 1, x: 20, y: 30, price: 15, status: 'available', parker: 'John D.', rating: 4.8, distance: '2 min' },
+                { id: 2, x: 35, y: 45, price: 12, status: 'available', parker: 'Sarah M.', rating: 4.9, distance: '3 min' },
+                { id: 3, x: 60, y: 25, price: 18, status: 'reserved', parker: 'Mike J.', rating: 4.7, distance: '1 min' },
+                { id: 4, x: 45, y: 65, price: 20, status: 'available', parker: 'Lisa K.', rating: 4.9, distance: '4 min' },
+                { id: 5, x: 75, y: 50, price: 25, status: 'available', parker: 'David R.', rating: 4.8, distance: '2 min' },
+                { id: 6, x: 25, y: 70, price: 14, status: 'available', parker: 'Emma W.', rating: 4.9, distance: '3 min' },
+            ];
+        }
+
+        function generateLegacySpots() {
+            return [
+                { id: 7, x: 30, y: 40, price: 8, status: 'available', parker: 'Alex T.', rating: 4.8, distance: '1 min' },
+                { id: 8, x: 50, y: 30, price: 10, status: 'available', parker: 'Maria L.', rating: 4.9, distance: '2 min' },
+                { id: 9, x: 70, y: 55, price: 12, status: 'reserved', parker: 'Chris B.', rating: 4.7, distance: '3 min' },
+                { id: 10, x: 40, y: 70, price: 15, status: 'available', parker: 'Anna S.', rating: 4.9, distance: '1 min' },
+                { id: 11, x: 65, y: 35, price: 9, status: 'available', parker: 'Tom H.', rating: 4.8, distance: '2 min' },
+            ];
+        }
+
+        function showSpotDetails(spot) {
+            if (spot.status === 'reserved') {
+                showNotification('This spot is already reserved', 'warning');
+                return;
+            }
+            
+            selectedSpot = spot;
+            const modal = document.getElementById('spotModal');
+            const details = document.getElementById('spotDetails');
+            
+            details.innerHTML = `
+                <div class="flex items-center space-x-4 mb-4">
+                    <div class="parker-avatar">${spot.parker.charAt(0)}</div>
+                    <div>
+                        <div class="font-bold text-gray-800">${spot.parker}</div>
+                        <div class="text-sm text-gray-600">⭐ ${spot.rating} rating • ${spot.distance} away</div>
+                    </div>
+                </div>
+                
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-600">Price:</span>
+                        <span class="font-bold text-blue-600 text-xl">$${spot.price}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-600">Duration:</span>
+                        <span class="font-semibold">2 hours</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-600">Location:</span>
+                        <span class="font-semibold">${currentLocation === 'downtown' ? 'Downtown Dallas' : 'Legacy West'}</span>
+                    </div>
+                </div>
+                
+                <div class="glass-card p-3 rounded-2xl mt-4">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-shield-alt text-green-500"></i>
+                        <span class="text-sm text-gray-600">Protected by Parkr Guarantee</span>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+        }
+
+        function hideSpotModal() {
+            document.getElementById('spotModal').classList.add('hidden');
+        }
+
+        function reserveSpot() {
+            if (!selectedSpot) return;
+            
+            hideSpotModal();
+            showBookingProgress();
+        }
+
+        function showBookingProgress() {
+            const modal = document.getElementById('bookingModal');
+            modal.classList.remove('hidden');
+            
+            // Simulate booking progress
+            bookingProgress = 0;
+            const progressInterval = setInterval(() => {
+                bookingProgress += 10;
+                document.getElementById('progressFill').style.width = bookingProgress + '%';
+                
+                // Update steps
+                if (bookingProgress === 30) {
+                    updateBookingStep(1, 'Parker contacted');
+                }
+                if (bookingProgress === 70) {
+                    updateBookingStep(2, 'Reservation confirmed');
+                }
+                if (bookingProgress >= 100) {
+                    clearInterval(progressInterval);
+                    setTimeout(() => {
+                        hideBookingModal();
+                        showSuccessModal();
+                    }, 500);
+                }
+            }, 300);
+        }
+
+        function updateBookingStep(stepIndex, text) {
+            const steps = document.getElementById('bookingSteps').children;
+            const step = steps[stepIndex];
+            step.innerHTML = `
+                <i class="fas fa-check-circle text-green-500"></i>
+                <span class="text-gray-800">${text}</span>
+            `;
+        }
+
+        function hideBookingModal() {
+            document.getElementById('bookingModal').classList.add('hidden');
+        }
+
+        function showSuccessModal() {
+            document.getElementById('successModal').classList.remove('hidden');
+            
+            // Update spot status
+            if (selectedSpot) {
+                selectedSpot.status = 'reserved';
+                generateParkingSpots(currentLocation);
+            }
+        }
+
+        function hideSuccessModal() {
+            document.getElementById('successModal').classList.add('hidden');
+        }
+
+        function navigateToSpot() {
+            showNotification('Opening navigation...', 'info');
+            hideSuccessModal();
+        }
+
+        function refreshSpots() {
+            showNotification('Refreshing available spots...', 'info');
+            if (currentLocation) {
+                generateParkingSpots(currentLocation);
+            }
+        }
+
+        function zoomIn() {
+            showNotification('Zooming in...', 'info');
+        }
+
+        function zoomOut() {
+            showNotification('Zooming out...', 'info');
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            const icons = {
+                info: 'fas fa-info-circle text-blue-500',
+                success: 'fas fa-check-circle text-green-500',
+                warning: 'fas fa-exclamation-triangle text-orange-500',
+                error: 'fas fa-times-circle text-red-500'
+            };
+            
+            notification.innerHTML = `
+                <div class="flex items-center space-x-3">
+                    <i class="${icons[type]} text-xl"></i>
+                    <div>
+                        <div class="font-semibold text-gray-800">${message}</div>
+                    </div>
+                </div>
+            `;
+            
+            notification.classList.add('show');
+            setTimeout(() => notification.classList.remove('show'), 3000);
+        }
+
+        function hideAllModals() {
+            document.getElementById('loginModal').classList.add('hidden');
+            document.getElementById('spotModal').classList.add('hidden');
+            document.getElementById('bookingModal').classList.add('hidden');
+            document.getElementById('successModal').classList.add('hidden');
+        }
+
+        function showLoadingState() {
+            // Add loading animation to login button
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<div class="loading-spinner w-5 h-5"></div>';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+            }, 1500);
+        }
+
+        function updateLocationCards(selectedLocation) {
+            const cards = document.querySelectorAll('.location-card');
+            cards.forEach(card => {
+                card.classList.remove('border-blue-500', 'bg-blue-50');
+                card.classList.add('border-gray-200');
+            });
+            
+            // Highlight selected card
+            const selectedCard = selectedLocation === 'downtown' ? cards[0] : cards[1];
+            selectedCard.classList.remove('border-gray-200');
+            selectedCard.classList.add('border-blue-500', 'bg-blue-50');
+        }
+
+        function animateOnScroll() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            });
+
+            document.querySelectorAll('.stats-card').forEach(card => {
+                observer.observe(card);
+            });
+        }
+
+        // Add realistic parker movement simulation
+        setInterval(() => {
+            if (currentLocation && document.getElementById('appInterface').classList.contains('hidden') === false) {
+                const spots = document.querySelectorAll('.parking-spot.available');
+                spots.forEach(spot => {
+                    // Random slight movement to simulate real parkers
+                    const randomOffset = (Math.random() - 0.5) * 2;
+                    spot.style.transform = `translate(${randomOffset}px, ${randomOffset}px)`;
+                    setTimeout(() => {
+                        spot.style.transform = 'translate(0, 0)';
+                    }, 1000);
+                });
+            }
+        }, 5000);
+
+        // Add dynamic pricing updates
+        setInterval(() => {
+            if (currentLocation) {
+                const priceElements = document.querySelectorAll('.price-tag');
+                priceElements.forEach(element => {
+                    const currentPrice = parseInt(element.textContent.replace('$', ''));
+                    // Small random price fluctuations
+                    const change = Math.random() > 0.5 ? 1 : -1;
+                    const newPrice = Math.max(5, currentPrice + change);
+                    element.textContent = '$' + newPrice;
+                });
+            }
+        }, 30000);
+    </script>
+</body>
+</html>
