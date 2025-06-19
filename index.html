@@ -11,6 +11,10 @@
         * {
             font-family: 'Inter', sans-serif;
         }
+
+        html {
+            scroll-behavior: smooth;
+        }
         
         :root {
             --primary-blue: #0066FF;
@@ -110,6 +114,7 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 30px rgba(0, 102, 255, 0.4);
         }
+        /* Active states will be added via Tailwind classes directly on elements for more flexibility */
 
         .btn-secondary {
             background: rgba(255, 255, 255, 0.9);
@@ -127,6 +132,7 @@
             color: white;
             transform: translateY(-2px);
         }
+        /* Active states will be added via Tailwind classes directly on elements for more flexibility */
 
         .parking-spot {
             width: 24px;
@@ -284,19 +290,19 @@
     <!-- Navigation -->
     <nav class="glass-morphism fixed top-0 left-0 right-0 z-50 p-4">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="flex items-center space-x-3">
+            <a href="#" onclick="goHome(); return false;" class="flex items-center space-x-3 cursor-pointer">
                 <div class="w-12 h-12 blue-gradient rounded-xl flex items-center justify-center">
                     <i class="fas fa-parking text-white text-xl"></i>
                 </div>
                 <h1 class="text-2xl font-bold text-gray-800">Parkr Valet</h1>
-            </div>
+            </a>
             <div class="hidden md:flex items-center space-x-6">
-                <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Features</a>
-                <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Pricing</a>
-                <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">About</a>
-                <button class="btn-primary" onclick="showLogin()">Get Started</button>
+                <a href="#featuresSection" onclick="navigateToSection('#featuresSection', event)" class="text-gray-600 hover:text-blue-600 active:text-blue-700 transition-colors">Features</a>
+                <a href="#pricingSection" onclick="navigateToSection('#pricingSection', event)" class="text-gray-600 hover:text-blue-600 active:text-blue-700 transition-colors">Pricing</a>
+                <a href="#aboutSection" onclick="navigateToSection('#aboutSection', event)" class="text-gray-600 hover:text-blue-600 active:text-blue-700 transition-colors">About</a>
+                <button class="btn-primary active:scale-95 active:bg-opacity-90" onclick="showLogin()">Get Started</button>
             </div>
-            <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
+            <button class="md:hidden text-gray-600 hover:text-blue-600 active:text-blue-700" onclick="toggleMobileMenu()">
                 <i class="fas fa-bars text-xl"></i>
             </button>
         </div>
@@ -312,10 +318,10 @@
                 </button>
             </div>
             <nav class="space-y-6">
-                <a href="#" class="block text-lg">Features</a>
-                <a href="#" class="block text-lg">Pricing</a>
-                <a href="#" class="block text-lg">About</a>
-                <button class="btn-primary w-full" onclick="showLogin()">Get Started</button>
+                <a href="#featuresSection" onclick="navigateToSection('#featuresSection', event)" class="block text-lg hover:text-blue-600 active:text-blue-700">Features</a>
+                <a href="#pricingSection" onclick="navigateToSection('#pricingSection', event)" class="block text-lg hover:text-blue-600 active:text-blue-700">Pricing</a>
+                <a href="#aboutSection" onclick="navigateToSection('#aboutSection', event)" class="block text-lg hover:text-blue-600 active:text-blue-700">About</a>
+                <button class="btn-primary w-full active:scale-95 active:bg-opacity-90" onclick="showLogin()">Get Started</button>
             </nav>
         </div>
     </div>
@@ -333,11 +339,11 @@
                     Reserve your perfect parking spot with Parkr Valet. Our network of professional parkers ensures you always have a spot waiting.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <button class="btn-primary text-lg px-8 py-4" onclick="showLogin()">
+                    <button class="btn-primary text-lg px-8 py-4 active:scale-95 active:bg-opacity-90" onclick="showLogin()">
                         <i class="fas fa-rocket mr-2"></i>
                         Start Parking Smart
                     </button>
-                    <button class="btn-secondary text-lg px-8 py-4" onclick="demoAccess()">
+                    <button class="btn-secondary text-lg px-8 py-4 active:scale-95 active:bg-gray-100" onclick="demoAccess()">
                         <i class="fas fa-play mr-2"></i>
                         Try Demo
                     </button>
@@ -374,6 +380,116 @@
         </div>
     </section>
 
+    <!-- Features Section -->
+    <section id="featuresSection" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+                    Core Features
+                </h2>
+                <p class="mt-4 text-xl text-gray-600">
+                    Discover why Parkr Valet is the ultimate parking solution.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Feature 1 -->
+                <div class="text-center p-6 border border-gray-200 rounded-lg shadow-lg hover-lift">
+                    <div class="text-5xl text-blue-600 mb-4"><i class="fas fa-map-signs"></i></div>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-2">Real-time Availability</h3>
+                    <p class="text-gray-600">Instantly see available parking spots in your chosen location, updated live.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="text-center p-6 border border-gray-200 rounded-lg shadow-lg hover-lift">
+                    <div class="text-5xl text-blue-600 mb-4"><i class="fas fa-calendar-check"></i></div>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-2">Seamless Booking</h3>
+                    <p class="text-gray-600">Reserve your spot in seconds with our intuitive and fast booking process.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="text-center p-6 border border-gray-200 rounded-lg shadow-lg hover-lift">
+                    <div class="text-5xl text-blue-600 mb-4"><i class="fas fa-shield-alt"></i></div>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-2">Trusted Parkers</h3>
+                    <p class="text-gray-600">Our professional and vetted parkers ensure your vehicle is safe and sound.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricingSection" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+                    Flexible Pricing Plans
+                </h2>
+                <p class="mt-4 text-xl text-gray-600">
+                    Choose the plan that best fits your parking needs.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Plan 1 -->
+                <div class="bg-white rounded-lg shadow-xl p-8 hover-lift flex flex-col">
+                    <h3 class="text-2xl font-bold text-gray-900 text-center">Standard</h3>
+                    <div class="my-4 text-center">
+                        <span class="text-5xl font-extrabold text-gray-900">$5</span>
+                        <span class="text-xl text-gray-500">/booking</span>
+                    </div>
+                    <ul class="space-y-3 text-gray-600 mb-8 flex-grow">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Pay-as-you-go</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Access to all locations</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Standard support</li>
+                    </ul>
+                    <button class="btn-secondary w-full active:scale-95 active:bg-gray-100">Choose Standard</button>
+                </div>
+                <!-- Plan 2: Recommended -->
+                <div class="bg-blue-600 text-white rounded-lg shadow-2xl p-8 relative hover-lift flex flex-col">
+                    <span class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-yellow-400 text-gray-900 px-3 py-1 text-sm font-semibold rounded-full">Most Popular</span>
+                    <h3 class="text-2xl font-bold text-center">Premium</h3>
+                    <div class="my-4 text-center">
+                        <span class="text-5xl font-extrabold">$20</span>
+                        <span class="text-xl opacity-90">/month</span>
+                    </div>
+                    <ul class="space-y-3 opacity-90 mb-8 flex-grow">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-yellow-400 mr-2"></i>5 free bookings/month</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-yellow-400 mr-2"></i>Discounted rates</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-yellow-400 mr-2"></i>Priority support</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-yellow-400 mr-2"></i>Early access to new spots</li>
+                    </ul>
+                    <button class="btn-primary bg-white text-blue-600 hover:bg-gray-200 active:scale-95 active:bg-gray-300 w-full">Choose Premium</button>
+                </div>
+                <!-- Plan 3 -->
+                <div class="bg-white rounded-lg shadow-xl p-8 hover-lift flex flex-col">
+                    <h3 class="text-2xl font-bold text-gray-900 text-center">Business</h3>
+                    <div class="my-4 text-center">
+                        <span class="text-5xl font-extrabold text-gray-900">$75</span>
+                        <span class="text-xl text-gray-500">/month</span>
+                    </div>
+                    <ul class="space-y-3 text-gray-600 mb-8 flex-grow">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Unlimited bookings</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Dedicated account manager</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Group discounts</li>
+                    </ul>
+                    <button class="btn-secondary w-full active:scale-95 active:bg-gray-100">Choose Business</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="aboutSection" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+                    About Parkr Valet
+                </h2>
+            </div>
+            <div class="max-w-3xl mx-auto text-lg text-gray-700 space-y-6 text-center">
+                <p>Founded in 2023, Parkr Valet emerged from a simple observation: parking in urban areas is a persistent challenge. We envisioned a world where finding a parking spot is no longer a source of stress, but a seamless part of your journey.</p>
+                <p>Our mission is to connect drivers with reliable, professional parkers in real-time, offering a premium service that saves you time, money, and hassle. We leverage cutting-edge technology and a dedicated network of parkers to deliver an unparalleled parking experience.</p>
+                <p>At Parkr Valet, we're more than just a parking app; we're your partners in navigating the city with ease and confidence. Join us as we redefine urban mobility, one parking spot at a time.</p>
+            </div>
+        </div>
+    </section>
+
     <!-- Login Modal -->
     <div id="loginModal" class="fixed inset-0 modal-backdrop z-50 hidden flex items-center justify-center p-4">
         <div class="glass-card rounded-3xl p-8 w-full max-w-md slide-up">
@@ -395,21 +511,21 @@
             </div>
             
             <div class="space-y-3">
-                <button class="btn-primary w-full" onclick="loginUser()">
+                <button class="btn-primary w-full active:scale-95 active:bg-opacity-90" onclick="loginUser()">
                     <i class="fas fa-sign-in-alt mr-2"></i>
                     Sign In
                 </button>
-                <button class="btn-secondary w-full" onclick="demoAccess()">
+                <button class="btn-secondary w-full active:scale-95 active:bg-gray-100" onclick="demoAccess()">
                     <i class="fas fa-eye mr-2"></i>
                     Demo Access
                 </button>
             </div>
             
             <div class="text-center mt-6">
-                <p class="text-gray-600">Don't have an account? <a href="#" class="text-blue-600 font-semibold">Sign up</a></p>
+                <p class="text-gray-600">Don't have an account? <a href="#" class="text-blue-600 font-semibold hover:underline active:text-blue-700">Sign up</a></p>
             </div>
             
-            <button onclick="hideLogin()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+            <button onclick="hideLogin()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 active:text-gray-800">
                 <i class="fas fa-times text-xl"></i>
             </button>
         </div>
@@ -418,10 +534,12 @@
     <!-- Main App Interface -->
     <div id="appInterface" class="hidden">
         <!-- Header -->
-        <header class="glass-morphism p-4 sticky top-0 z-40">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 blue-gradient rounded-xl flex items-center justify-center">
+        <header class="glass-morphism p-4 sticky top-0 z-40 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <button id="sidebarToggle" class="text-gray-800 hover:text-blue-600 active:text-blue-700 mr-2 p-2 rounded hover:bg-gray-200 active:bg-gray-300">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                <div class="w-10 h-10 blue-gradient rounded-xl flex items-center justify-center">
                         <i class="fas fa-parking text-white"></i>
                     </div>
                     <div>
@@ -445,135 +563,258 @@
             </div>
         </header>
 
-        <!-- Location Selector -->
-        <div class="p-4 bg-white border-b">
-            <div class="flex items-center justify-between mb-4">
-                <h2 class="text-xl font-bold text-gray-800">Choose Location</h2>
-                <button onclick="refreshSpots()" class="text-blue-600 hover:text-blue-800">
-                    <i class="fas fa-sync-alt"></i>
-                </button>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <button onclick="showLocation('downtown')" class="location-card p-4 border-2 border-gray-200 rounded-2xl hover:border-blue-500 transition-colors text-left">
-                    <div class="flex items-center justify-between mb-2">
-                        <h3 class="font-bold text-gray-800">Downtown Dallas</h3>
-                        <div class="price-tag text-sm">$8-25</div>
-                    </div>
-                    <p class="text-gray-600 text-sm mb-3">Business district, high demand</p>
-                    <div class="flex items-center space-x-4">
-                        <div class="flex items-center space-x-1">
-                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-                            <span class="text-sm text-gray-600">12 available</span>
-                        </div>
-                        <div class="flex items-center space-x-1">
-                            <i class="fas fa-clock text-gray-400 text-sm"></i>
-                            <span class="text-sm text-gray-600">2 min walk</span>
-                        </div>
-                    </div>
-                </button>
-                
-                <button onclick="showLocation('legacy')" class="location-card p-4 border-2 border-gray-200 rounded-2xl hover:border-blue-500 transition-colors text-left">
-                    <div class="flex items-center justify-between mb-2">
-                        <h3 class="font-bold text-gray-800">Legacy West Plano</h3>
-                        <div class="price-tag text-sm">$5-15</div>
-                    </div>
-                    <p class="text-gray-600 text-sm mb-3">Shopping & dining district</p>
-                    <div class="flex items-center space-x-4">
-                        <div class="flex items-center space-x-1">
-                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-                            <span class="text-sm text-gray-600">8 available</span>
-                        </div>
-                        <div class="flex items-center space-x-1">
-                            <i class="fas fa-clock text-gray-400 text-sm"></i>
-                            <span class="text-sm text-gray-600">1 min walk</span>
-                        </div>
-                    </div>
-                </button>
-            </div>
-        </div>
-
-        <!-- Map View -->
-        <div id="mapView" class="p-4">
-            <div class="map-container h-96 p-6 relative">
-                <div class="absolute top-4 left-4 glass-card p-3 rounded-2xl">
-                    <div class="flex items-center space-x-2">
-                        <i class="fas fa-map-marker-alt text-blue-600"></i>
-                        <span class="font-semibold text-gray-800" id="currentLocation">Select Location</span>
-                    </div>
+        <!-- App Body: Sidebar + Main Content -->
+        <div id="appBody" class="flex pt-16"> <!-- pt-16 to offset for fixed header height -->
+            <!-- Sidebar -->
+            <aside id="sidebar" class="w-64 bg-gray-100 p-4 shadow-lg transition-all duration-300 ease-in-out h-screen fixed top-16 left-0 z-30 md:block">
+                <!-- sticky top-16 to account for header height. left-0 to fix its position -->
+                <div class="mt-4">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-3">Navigation</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="block p-2 rounded hover:bg-blue-100 text-gray-600 hover:text-blue-700 active:bg-blue-200 active:text-blue-800"><i class="fas fa-home mr-2"></i>Dashboard</a></li>
+                        <li><a href="#" class="block p-2 rounded hover:bg-blue-100 text-gray-600 hover:text-blue-700 active:bg-blue-200 active:text-blue-800"><i class="fas fa-map-marked-alt mr-2"></i>Map View</a></li>
+                        <li><a href="#" class="block p-2 rounded hover:bg-blue-100 text-gray-600 hover:text-blue-700 active:bg-blue-200 active:text-blue-800"><i class="fas fa-history mr-2"></i>Booking History</a></li>
+                        <li><a href="#" class="block p-2 rounded hover:bg-blue-100 text-gray-600 hover:text-blue-700 active:bg-blue-200 active:text-blue-800"><i class="fas fa-cog mr-2"></i>Settings</a></li>
+                    </ul>
+                    <p class="text-gray-600 mt-6">Sidebar Placeholder</p>
                 </div>
-                
-                <div class="absolute top-4 right-4 space-y-2">
-                    <div class="glass-card p-2 rounded-xl">
-                        <button onclick="zoomIn()" class="block w-8 h-8 text-gray-600 hover:text-blue-600">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                        <button onclick="zoomOut()" class="block w-8 h-8 text-gray-600 hover:text-blue-600">
-                            <i class="fas fa-minus"></i>
+            </aside>
+
+            <!-- Main Content -->
+            <main id="mainContent" class="flex-grow p-4 transition-all duration-300 ease-in-out md:ml-64 relative">
+                <!-- md:ml-64 to offset for sidebar width on medium screens and up. Added relative for potential absolute positioned children if needed. -->
+
+                <!-- Container for Map, Location Selector, Stats -->
+                <div id="mapRelatedContent">
+                    <!-- Location Selector -->
+                    <div class="p-4 bg-white border-b">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-xl font-bold text-gray-800">Choose Location</h2>
+                        <button onclick="refreshSpots()" class="text-blue-600 hover:text-blue-700 active:text-blue-800 active:scale-90 transform transition-transform p-1 rounded-md">
+                            <i class="fas fa-sync-alt"></i>
                         </button>
                     </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <button onclick="showLocation('downtown')" class="location-card p-4 border-2 border-gray-200 rounded-2xl hover:border-blue-500 active:border-blue-700 active:bg-blue-50 transition-colors text-left cursor-pointer">
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="font-bold text-gray-800">Downtown Dallas</h3>
+                                <div class="price-tag text-sm">$8-25</div>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-3">Business district, high demand</p>
+                            <div class="flex items-center space-x-4">
+                                <div class="flex items-center space-x-1">
+                                    <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                                    <span class="text-sm text-gray-600">12 available</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <i class="fas fa-clock text-gray-400 text-sm"></i>
+                                    <span class="text-sm text-gray-600">2 min walk</span>
+                                </div>
+                            </div>
+                        </button>
+
+                        <button onclick="showLocation('legacy')" class="location-card p-4 border-2 border-gray-200 rounded-2xl hover:border-blue-500 active:border-blue-700 active:bg-blue-50 transition-colors text-left cursor-pointer">
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="font-bold text-gray-800">Legacy West Plano</h3>
+                                <div class="price-tag text-sm">$5-15</div>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-3">Shopping & dining district</p>
+                            <div class="flex items-center space-x-4">
+                                <div class="flex items-center space-x-1">
+                                    <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                                    <span class="text-sm text-gray-600">8 available</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <i class="fas fa-clock text-gray-400 text-sm"></i>
+                                    <span class="text-sm text-gray-600">1 min walk</span>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
                 </div>
-                
-                <!-- Parking Spots -->
-                <div id="parkingSpots" class="absolute inset-0 p-6">
-                    <!-- Spots will be generated dynamically -->
-                </div>
-                
-                <!-- Legend -->
-                <div class="absolute bottom-4 left-4 glass-card p-3 rounded-2xl">
-                    <div class="flex items-center space-x-4 text-sm">
-                        <div class="flex items-center space-x-1">
-                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-                            <span>Available</span>
+
+                <!-- Map View -->
+                <div id="mapView" class="p-4">
+                    <div class="map-container h-96 p-6 relative">
+                        <div class="absolute top-4 left-4 glass-card p-3 rounded-2xl">
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-map-marker-alt text-blue-600"></i>
+                                <span class="font-semibold text-gray-800" id="currentLocation">Select Location</span>
+                            </div>
                         </div>
-                        <div class="flex items-center space-x-1">
-                            <div class="w-3 h-3 bg-orange-500 rounded-full"></div>
-                            <span>Reserved</span>
+
+                        <div class="absolute top-4 right-4 space-y-2">
+                            <div class="glass-card p-2 rounded-xl">
+                                <button onclick="zoomIn()" class="block w-8 h-8 text-gray-600 hover:text-blue-600 active:bg-gray-200 active:scale-90 rounded-md">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <button onclick="zoomOut()" class="block w-8 h-8 text-gray-600 hover:text-blue-600 active:bg-gray-200 active:scale-90 rounded-md">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Parking Spots -->
+                        <div id="parkingSpots" class="absolute inset-0">
+                            <!-- Spots will be generated dynamically -->
+                        </div>
+
+                        <!-- Legend -->
+                        <div class="absolute bottom-4 left-4 glass-card p-3 rounded-2xl">
+                            <div class="flex items-center space-x-4 text-sm">
+                                <div class="flex items-center space-x-1">
+                                    <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                                    <span>Available</span>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <div class="w-3 h-3 bg-orange-500 rounded-full"></div>
+                                    <span>Reserved</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Stats Dashboard -->
-        <div class="p-4">
-            <h3 class="text-lg font-bold text-gray-800 mb-4">Your Parking Stats</h3>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="stats-card text-center">
-                    <div class="text-2xl font-bold text-blue-600 mb-1">24</div>
-                    <div class="text-sm text-gray-600">Spots Reserved</div>
+                <!-- Stats Dashboard -->
+                <div class="p-4">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">Your Parking Stats</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="stats-card text-center">
+                            <div class="text-2xl font-bold text-blue-600 mb-1">24</div>
+                            <div class="text-sm text-gray-600">Spots Reserved</div>
+                        </div>
+                        <div class="stats-card text-center">
+                            <div class="text-2xl font-bold text-green-600 mb-1">$127</div>
+                            <div class="text-sm text-gray-600">Money Saved</div>
+                        </div>
+                        <div class="stats-card text-center">
+                            <div class="text-2xl font-bold text-purple-600 mb-1">45min</div>
+                            <div class="text-sm text-gray-600">Time Saved</div>
+                        </div>
+                        <div class="stats-card text-center">
+                            <div class="text-2xl font-bold text-orange-600 mb-1">4.9</div>
+                            <div class="text-sm text-gray-600">Rating</div>
+                        </div>
+                        </div>
+                    </div>
+                    <!-- Stats Dashboard -->
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4">Your Parking Stats</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="stats-card text-center">
+                                <div class="text-2xl font-bold text-blue-600 mb-1">24</div>
+                                <div class="text-sm text-gray-600">Spots Reserved</div>
+                            </div>
+                            <div class="stats-card text-center">
+                                <div class="text-2xl font-bold text-green-600 mb-1">$127</div>
+                                <div class="text-sm text-gray-600">Money Saved</div>
+                            </div>
+                            <div class="stats-card text-center">
+                                <div class="text-2xl font-bold text-purple-600 mb-1">45min</div>
+                                <div class="text-sm text-gray-600">Time Saved</div>
+                            </div>
+                            <div class="stats-card text-center">
+                                <div class="text-2xl font-bold text-orange-600 mb-1">4.9</div>
+                                <div class="text-sm text-gray-600">Rating</div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- End of mapRelatedContent -->
+
+                <!-- History Content -->
+                <div id="historyContent" class="hidden p-4">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Parking History</h2>
+                    <div class="space-y-4">
+                        <div class="glass-card p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-700">Downtown Dallas - Victory Park</h3>
+                            <p class="text-sm text-gray-500">Date: 2023-10-26 | Duration: 2 hours</p>
+                            <p class="text-lg font-semibold text-blue-600 mt-2">$15.00</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-700">Legacy West Plano - Garage B</h3>
+                            <p class="text-sm text-gray-500">Date: 2023-10-20 | Duration: 3 hours</p>
+                            <p class="text-lg font-semibold text-blue-600 mt-2">$10.00</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-700">Uptown Shops - Street Parking</h3>
+                            <p class="text-sm text-gray-500">Date: 2023-10-15 | Duration: 1 hour</p>
+                            <p class="text-lg font-semibold text-blue-600 mt-2">$8.00</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="stats-card text-center">
-                    <div class="text-2xl font-bold text-green-600 mb-1">$127</div>
-                    <div class="text-sm text-gray-600">Money Saved</div>
+
+                <!-- Wallet Content -->
+                <div id="walletContent" class="hidden p-4">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">My Wallet</h2>
+                    <div class="glass-card p-6 rounded-lg mb-6">
+                        <p class="text-gray-600">Current Balance</p>
+                        <p class="text-4xl font-bold text-blue-700 mb-4">$50.00</p>
+                        <button class="btn-primary w-full sm:w-auto active:scale-95 active:bg-opacity-90">Add Funds</button>
+                    </div>
+                    <div class="glass-card p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-4">Payment Methods</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center p-3 bg-gray-50 rounded-md hover:bg-gray-100 cursor-pointer">
+                                <div>
+                                    <p class="font-medium">Visa **** 1234</p>
+                                    <p class="text-xs text-gray-500">Expires 12/25</p>
+                                </div>
+                                <i class="fab fa-cc-visa text-blue-600 text-2xl"></i>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-gray-50 rounded-md hover:bg-gray-100 cursor-pointer">
+                                <div>
+                                    <p class="font-medium">PayPal</p>
+                                    <p class="text-xs text-gray-500">user@example.com</p>
+                                </div>
+                                <i class="fab fa-paypal text-blue-500 text-2xl"></i>
+                            </div>
+                        </div>
+                        <button class="btn-secondary w-full mt-6 active:scale-95 active:bg-gray-100">Manage Payment Methods</button>
+                    </div>
                 </div>
-                <div class="stats-card text-center">
-                    <div class="text-2xl font-bold text-purple-600 mb-1">45min</div>
-                    <div class="text-sm text-gray-600">Time Saved</div>
+
+                <!-- Profile Content -->
+                <div id="profileContent" class="hidden p-4">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">My Profile</h2>
+                    <div class="glass-card p-6 rounded-lg">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="parker-avatar text-2xl">JD</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800">John Doe</h3>
+                                <p class="text-sm text-gray-500">john.doe@example.com</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3 text-gray-700 mb-6">
+                            <p><strong>Member Since:</strong> January 2023</p>
+                            <p><strong>Subscription:</strong> Premium</p>
+                            <p><strong>Total Bookings:</strong> 24</p>
+                        </div>
+                        <div class="space-y-3 sm:space-y-0 sm:flex sm:space-x-3">
+                            <button class="btn-primary w-full sm:w-auto active:scale-95 active:bg-opacity-90">Edit Profile</button>
+                            <button class="btn-secondary w-full sm:w-auto active:scale-95 active:bg-gray-100">Change Password</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="stats-card text-center">
-                    <div class="text-2xl font-bold text-orange-600 mb-1">4.9</div>
-                    <div class="text-sm text-gray-600">Rating</div>
-                </div>
-            </div>
+            </main>
         </div>
 
         <!-- Bottom Navigation -->
-        <nav class="fixed bottom-0 left-0 right-0 glass-morphism p-4">
-            <div class="flex justify-around">
-                <button class="nav-item active flex flex-col items-center space-y-1 text-blue-600">
+        <nav class="fixed bottom-0 left-0 right-0 glass-morphism p-4 z-50">
+            <div id="bottomNav" class="flex justify-around">
+                <button id="navButtonMap" onclick="showAppContent('map')" class="nav-item active flex flex-col items-center space-y-1 text-blue-600">
                     <i class="fas fa-map text-xl"></i>
                     <span class="text-xs">Map</span>
                 </button>
-                <button class="nav-item flex flex-col items-center space-y-1 text-gray-400">
+                <button id="navButtonHistory" onclick="showAppContent('history')" class="nav-item flex flex-col items-center space-y-1 text-gray-400">
                     <i class="fas fa-history text-xl"></i>
                     <span class="text-xs">History</span>
                 </button>
-                <button class="nav-item flex flex-col items-center space-y-1 text-gray-400">
+                <button id="navButtonWallet" onclick="showAppContent('wallet')" class="nav-item flex flex-col items-center space-y-1 text-gray-400">
                     <i class="fas fa-wallet text-xl"></i>
                     <span class="text-xs">Wallet</span>
                 </button>
-                <button class="nav-item flex flex-col items-center space-y-1 text-gray-400">
+                <button id="navButtonProfile" onclick="showAppContent('profile')" class="nav-item flex flex-col items-center space-y-1 text-gray-400">
                     <i class="fas fa-user text-xl"></i>
                     <span class="text-xs">Profile</span>
                 </button>
@@ -596,11 +837,11 @@
             </div>
             
             <div class="mt-6 space-y-3">
-                <button class="btn-primary w-full" onclick="reserveSpot()">
+                <button class="btn-primary w-full active:scale-95 active:bg-opacity-90" onclick="reserveSpot()">
                     <i class="fas fa-lock mr-2"></i>
                     Reserve This Spot
                 </button>
-                <button class="btn-secondary w-full" onclick="hideSpotModal()">
+                <button class="btn-secondary w-full active:scale-95 active:bg-gray-100" onclick="hideSpotModal()">
                     Cancel
                 </button>
             </div>
@@ -651,18 +892,18 @@
                         <div class="font-bold text-gray-800">Mike Johnson</div>
                         <div class="text-sm text-gray-600">⭐ 4.9 rating • 2.5 min away</div>
                     </div>
-                    <button class="ml-auto text-blue-600">
+                    <button class="ml-auto text-blue-600 hover:text-blue-700 active:text-blue-800 cursor-pointer p-2 rounded-md">
                         <i class="fas fa-phone text-xl"></i>
                     </button>
                 </div>
             </div>
             
             <div class="space-y-3">
-                <button class="btn-primary w-full" onclick="navigateToSpot()">
+                <button class="btn-primary w-full active:scale-95 active:bg-opacity-90" onclick="navigateToSpot()">
                     <i class="fas fa-navigation mr-2"></i>
                     Navigate to Spot
                 </button>
-                <button class="btn-secondary w-full" onclick="hideSuccessModal()">
+                <button class="btn-secondary w-full active:scale-95 active:bg-gray-100" onclick="hideSuccessModal()">
                     Done
                 </button>
             </div>
@@ -685,6 +926,7 @@
         let currentLocation = null;
         let selectedSpot = null;
         let bookingProgress = 0;
+        let isSidebarOpen = true; // Track sidebar state
 
         // Initialize app
         document.addEventListener('DOMContentLoaded', function() {
@@ -693,9 +935,21 @@
             
             // Set up event listeners
             setupEventListeners();
+
+            // Sidebar toggle listener
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', toggleSidebar);
+            }
             
             // Initialize notifications
             setTimeout(showWelcomeNotification, 1000);
+
+            // Initial sidebar state for mobile
+            if (window.innerWidth < 768) {
+                isSidebarOpen = false; // Start closed on mobile
+            }
+            updateSidebarState(); // Apply initial state
         });
 
         function setupEventListeners() {
@@ -713,6 +967,166 @@
                 }
             });
         }
+
+        function toggleSidebar() {
+            isSidebarOpen = !isSidebarOpen;
+            updateSidebarState();
+        }
+
+        function updateSidebarState() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            const sidebarToggleIcon = document.getElementById('sidebarToggle').querySelector('i');
+
+            if (!sidebar || !mainContent || !sidebarToggleIcon) return; // Defensive check
+
+            if (isSidebarOpen) {
+                sidebar.classList.remove('hidden', '-ml-64');
+                mainContent.classList.remove('md:ml-0');
+                mainContent.classList.add('md:ml-64');
+                sidebarToggleIcon.classList.remove('fa-bars');
+                sidebarToggleIcon.classList.add('fa-times');
+                 if (window.innerWidth < 768) {
+                    sidebar.classList.remove('md:block'); // Keep fixed for overlay effect
+                    sidebar.classList.add('fixed', 'z-40', 'w-full');
+                } else {
+                    sidebar.classList.remove('hidden');
+                    sidebar.classList.add('md:block');
+                }
+            } else {
+                mainContent.classList.remove('md:ml-64');
+                mainContent.classList.add('md:ml-0');
+                sidebarToggleIcon.classList.remove('fa-times');
+                sidebarToggleIcon.classList.add('fa-bars');
+                 if (window.innerWidth < 768) {
+                    sidebar.classList.add('hidden');
+                 } else {
+                    sidebar.classList.add('-ml-64');
+                 }
+            }
+        }
+
+        function goHome() {
+            // 1. Hide the #appInterface div
+            const appInterface = document.getElementById('appInterface');
+            if (appInterface) {
+                appInterface.classList.add('hidden');
+            }
+
+            // 2. Show the #heroSection div
+            const heroSection = document.getElementById('heroSection');
+            if (heroSection) {
+                heroSection.style.display = 'block';
+            }
+
+            // 3. Ensure the body's padding-bottom is removed
+            document.body.style.paddingBottom = '0px';
+
+            // 4. Hide any modals that might be open
+            hideAllModals();
+
+            // 5. Close the mobile menu if it's open
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu && !mobileMenu.classList.contains('translate-x-full')) {
+                mobileMenu.classList.add('translate-x-full');
+            }
+
+            // Optional: Reset sidebar state for #appInterface if needed when it's shown again
+            // This can be handled by showApp() or here if preferred.
+            // For now, showApp() handles initial sidebar state.
+        }
+
+        function showAppContent(targetId) {
+            const contentSectionIds = ['mapRelatedContent', 'historyContent', 'walletContent', 'profileContent'];
+            const navButtonIds = { // Map targetId to buttonId
+                'map': 'navButtonMap',
+                'history': 'navButtonHistory',
+                'wallet': 'navButtonWallet',
+                'profile': 'navButtonProfile'
+            };
+
+            // Hide all content sections
+            contentSectionIds.forEach(id => {
+                const section = document.getElementById(id);
+                if (section) {
+                    section.classList.add('hidden');
+                }
+            });
+
+            // Reset all nav buttons to inactive state
+            Object.values(navButtonIds).forEach(buttonId => {
+                const button = document.getElementById(buttonId);
+                if (button) {
+                    button.classList.remove('text-blue-600', 'active');
+                    button.classList.add('text-gray-400');
+                }
+            });
+
+            // Determine which section to show and which button to activate
+            let sectionToShowId = '';
+            if (targetId === 'map') {
+                sectionToShowId = 'mapRelatedContent';
+            } else if (targetId === 'history') {
+                sectionToShowId = 'historyContent';
+            } else if (targetId === 'wallet') {
+                sectionToShowId = 'walletContent';
+            } else if (targetId === 'profile') {
+                sectionToShowId = 'profileContent';
+            }
+            // else { // Default or error case
+            //     sectionToShowId = 'mapRelatedContent';
+            //     targetId = 'map'; // ensure targetId matches for button activation
+            // }
+
+
+            const activeSection = document.getElementById(sectionToShowId);
+            if (activeSection) {
+                activeSection.classList.remove('hidden');
+            }
+
+            const activeButtonId = navButtonIds[targetId];
+            if (activeButtonId) {
+                const activeButton = document.getElementById(activeButtonId);
+                if (activeButton) {
+                    activeButton.classList.add('text-blue-600', 'active');
+                    activeButton.classList.remove('text-gray-400');
+                }
+            }
+        }
+
+        function navigateToSection(sectionId, event) {
+            const appInterface = document.getElementById('appInterface');
+
+            // If appInterface is visible (not hidden)
+            if (appInterface && !appInterface.classList.contains('hidden')) {
+                event.preventDefault(); // Stop the link from navigating immediately
+                goHome(); // Switch to home view
+
+                // After goHome completes, scroll to the section.
+                // A small delay can help ensure DOM updates (hero section visible) are processed.
+                setTimeout(() => {
+                    const targetElement = document.querySelector(sectionId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 100); // 100ms delay, adjust if necessary
+            } else {
+                // If already on the landing page (hero section visible),
+                // ensure mobile menu closes if a link there is clicked.
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu && !mobileMenu.classList.contains('translate-x-full')) {
+                    mobileMenu.classList.add('translate-x-full');
+                }
+                // Allow default href behavior to handle smooth scroll (due to html {scroll-behavior: smooth;})
+                // For more control or if issues arise with default:
+                // event.preventDefault();
+                // const targetElement = document.querySelector(sectionId);
+                // if (targetElement) {
+                //    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // }
+            }
+        }
+
 
         function showWelcomeNotification() {
             const notification = document.getElementById('notification');
@@ -761,7 +1175,17 @@
         function showApp() {
             document.getElementById('heroSection').style.display = 'none';
             document.getElementById('appInterface').classList.remove('hidden');
-            document.body.style.paddingBottom = '80px'; // Account for bottom nav
+            // document.body.style.paddingBottom = '80px'; // Account for bottom nav, might not be needed if main content scrolls
+
+            const appInterface = document.getElementById('appInterface'); // Already declared earlier
+            const header = appInterface.querySelector('header'); // Already declared earlier
+            const appBody = document.getElementById('appBody'); // Already declared earlier
+
+            if (window.innerWidth < 768) {
+                isSidebarOpen = false;
+            }
+            updateSidebarState();
+            showAppContent('map'); // Default to map view
         }
 
         function showLocation(location) {
